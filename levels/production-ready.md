@@ -98,3 +98,4 @@ Un progetto **non è Production Ready** se anche uno solo di questi è vero:
 - Pratiche di implementazione: [`practices/`](../practices/)
 - Livello inferiore: [`levels/foundation.md`](foundation.md)
 - Livello superiore: [`levels/enterprise-grade.md`](enterprise-grade.md)
+
