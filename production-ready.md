@@ -1,113 +1,94 @@
-# Enterprise Grade
+# Production Ready
 
-Il livello Enterprise Grade si applica a sistemi critici per il business, ad alta scalabilità, con requisiti di governance, compliance o autonomia agentiva. Include tutti gli standard Production Ready e aggiunge i requisiti necessari per operare a livello enterprise.
+Il livello Production Ready si applica a tutti i sistemi che vengono deployati in produzione con utenti reali. Include tutti gli standard Foundation e aggiunge i requisiti necessari per operare un sistema in modo affidabile e sostenibile nel tempo.
 
 ---
 
 ## Definizione
 
-> Un progetto Enterprise Grade garantisce che il sistema sia **governabile, auditabile e sostenibile** a scala organizzativa, con osservabilità completa, gestione esplicita dell'autonomia agentiva e controllo dei costi.
+> Un progetto Production Ready garantisce che il sistema sia **validato, osservabile e operabile** in produzione, con qualità del codice verificata automaticamente e riproducibilità completa di ambienti, dati ed esperimenti.
 
 ---
 
 ## Prerequisito
 
-**Tutti i criteri Production Ready — e quindi Foundation — devono essere soddisfatti prima di verificare i criteri Enterprise Grade.**
+**Tutti i criteri Foundation devono essere soddisfatti prima di verificare i criteri Production Ready.**
 
 ---
 
 ## Checklist di conformità
 
-*In aggiunta a tutti i criteri Production Ready.*
+*In aggiunta a tutti i criteri Foundation.*
 
-### Osservabilità avanzata
-
-```
-□ S16 avanzato — Metriche di business monitorate in produzione
-                  Criterio: almeno un KPI di business correlato alle metriche tecniche
-
-□ SLO definiti e monitorati
-   Criterio: Service Level Objectives documentati, misurati e comunicati al cliente
-   Posizione: docs/slo.md
-```
-
-### Model governance
+### Architettura
 
 ```
-□ S09 avanzato — Model registry con promozione controllata
-                  Tool: MLflow Model Registry
-                  Criterio: ogni modello in produzione è registrato con versione,
-                            provenienza e criteri di promozione documentati
-
-□ Security e compliance documentate
-   Criterio: documento esplicito su gestione dati sensibili, superfici di attacco
-             e conformità ai requisiti del cliente
-   Posizione: docs/security.md
+□ S02 — ADR per ogni decisione tecnica rilevante
+         Posizione: docs/decisions/
+         Criterio: ogni decisione costosa da invertire ha un ADR con contesto e alternative
 ```
 
-### Sistemi agentici
-*Applicabile solo a progetti con componenti agentiche. Obbligatorio se il sistema include agenti LLM.*
+### Qualità del codice
 
 ```
-□ S18 — Tool safety classification completa
-         Criterio: ogni tool classificato READ / WRITE-REV / WRITE-IRR
-                   con vincoli implementati nel codice
-         Posizione: docs/tools-registry.md
+□ S06 — Code quality automatizzata con pre-commit hooks attivi
+         Criterio: impossibile committare codice non conforme a linting e formatting
+```
 
-□ S19 — Human-in-the-loop gates espliciti e implementati nel codice
-         Criterio: gate documentati nel diagramma e verificabili nel codice
-                   senza interpretazione
+### Riproducibilità
 
-□ S20 — Behavioral eval suite completa con i quattro scenari obbligatori
-         Criterio: suite eseguita prima di ogni deploy senza regressioni
-         Posizione: tests/evals/
+```
+□ S07 — Environment reproducibility verificata da persona non coinvolta nel progetto
+         Criterio: setup completato in meno di 30 minuti seguendo solo il README
 
-□ S21 — Agentic observability completa — ogni step, tool call, token e costo tracciati
-         Criterio: qualsiasi esecuzione ricostruibile step by step post-hoc
+□ S08 — Data reproducibility — raw immutabile, trasformazioni come codice versionato
+         Criterio: training rieseguibile con risultati comparabili da qualsiasi membro del team
 
-□ S22 — Perimeter definition esplicita con comportamento fuori scope implementato nel codice
-         Posizione: docs/agent-perimeter.md
+□ S09 — Experiment tracking attivo su tutti gli esperimenti rilevanti
+         Tool: MLflow
+         Criterio: ogni decisione di modello è giustificata da un run tracciato con parametri e metriche
 
-□ S23 — Cost control con budget per esecuzione e meccanismo di interruzione
-         Criterio: nessuna esecuzione può superare il budget senza essere interrotta
+□ S10 — Validation gates con criteri di accettazione definiti prima dell'inizio del progetto
+         Criterio: report di validazione documentato e firmato prima di ogni deploy
+```
+
+### Consegna
+
+```
+□ S16 — Logging strutturato attivo su tutti i componenti critici
+         Criterio: dato un failure, causa e contesto identificabili dai log senza riesecuzione
+
+□ S16 — Alerting configurato su failure critici
+         Criterio: il sistema notifica proattivamente prima che il cliente segnali il problema
 ```
 
 ---
 
 ## Artefatti obbligatori
 
-*In aggiunta agli artefatti Production Ready.*
+*In aggiunta agli artefatti Foundation.*
 
-| Artefatto | Posizione | Standard | Condizione |
-|---|---|---|---|
-| SLO document | `docs/slo.md` | SLO | Sempre |
-| Security document | `docs/security.md` | Compliance | Sempre |
-| Tools registry | `docs/tools-registry.md` | S18 | Solo sistemi agentici |
-| Agent perimeter | `docs/agent-perimeter.md` | S22 | Solo sistemi agentici |
-| Agentic eval suite | `tests/evals/` | S20 | Solo sistemi agentici |
+| Artefatto | Posizione | Standard |
+|---|---|---|
+| ADR (almeno uno) | `docs/decisions/` | S02 |
+| Pre-commit config | `.pre-commit-config.yaml` | S06 |
+| Acceptance criteria | `docs/acceptance-criteria.md` | S10 |
+| Validation report | `docs/validation-report-YYYY-MM-DD.md` | S10 |
 
 ---
 
 ## Criteri di esclusione
 
-Un progetto **non è Enterprise Grade** se anche uno solo di questi è vero:
+Un progetto **non è Production Ready** se anche uno solo di questi è vero:
 
-- Nessuna metrica di business monitorata in produzione
-- SLO non definiti o non misurati
-- Nessun model registry per modelli in produzione
-- Security e compliance non documentate
-- Per sistemi agentici: tool non classificati per safety
-- Per sistemi agentici: gate human-in-the-loop delegati alla logica dell'LLM
-- Per sistemi agentici: nessuna behavioral eval suite
-- Per sistemi agentici: esecuzioni senza budget e meccanismo di interruzione
-
----
-
-## Nota sui sistemi agentici
-
-Gli standard S18–S23 sono **obbligatori** per qualsiasi sistema con componenti agentiche a livello Enterprise Grade. Non sono opzionali anche se il sistema è considerato "a basso rischio".
-
-La classificazione di rischio di un sistema agentico non è una valutazione soggettiva — è determinata dalla presenza di tool WRITE-IRR e dalla conseguente irreversibilità di alcune azioni. Se il sistema ha tool irreversibili, gli standard agentici si applicano integralmente.
+- Nessun ADR per decisioni architetturali rilevanti
+- Pre-commit hooks non configurati o disabilitati
+- Setup non verificato da persona non coinvolta nel progetto
+- Dati raw modificati manualmente
+- Nessun experiment tracking su progetti di modeling
+- Criteri di accettazione non definiti prima dell'inizio del progetto
+- Nessun logging strutturato sui componenti critici
+- Nessun alerting su failure critici
 
 ---
 
@@ -115,4 +96,5 @@ La classificazione di rischio di un sistema agentico non è una valutazione sogg
 
 - Standard dettagliati: [`standards/`](../standards/)
 - Pratiche di implementazione: [`practices/`](../practices/)
-- Livello inferiore: [`levels/production-ready.md`](production-ready.md)
+- Livello inferiore: [`levels/foundation.md`](foundation.md)
+- Livello superiore: [`levels/enterprise-grade.md`](enterprise-grade.md)
