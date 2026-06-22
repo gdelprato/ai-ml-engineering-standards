@@ -1,5 +1,8 @@
 # AI/ML Engineering Standards
 
+
+"Come facciamo questo progetto in modo che sia riproducibile, consegnabile, manutenibile e valutabile — indipendentemente da chi lo fa?"
+
 Questo repository definisce il modello operativo ufficiale della practice per lo sviluppo di soluzioni AI, ML e sistemi agentici. Non è documentazione opzionale: è il riferimento normativo per ogni progetto.
 
 ---
