@@ -115,3 +115,38 @@ Questi standard si applicano a tutti i progetti della practice, senza eccezioni:
 | **Contributi** | Pull request con ADR allegato per ogni modifica strutturale |
 
 **Versione corrente:** `v1.0.0` — vedere [CHANGELOG](CHANGELOG.md) per la storia delle modifiche.
+
+---
+
+## Indice di navigazione
+
+### Principi
+- [Principi fondamentali (P01–P10)](principles/principles.md)
+
+### Standard
+- [Architettura e decisioni (S01–S02)](standards/architecture.md)
+- [Qualità del codice (S03–S06)](standards/code-quality.md)
+- [Riproducibilità e validazione (S07–S10)](standards/reproducibility.md)
+- [Gestione del lavoro (S11–S14)](standards/work-management.md)
+- [Consegna (S15–S17)](standards/delivery.md)
+- [Sistemi agentici (S18–S23)](standards/agentic-systems.md)
+
+### Pratiche
+- [Architettura e decisioni](practices/architecture.md)
+- [Qualità del codice](practices/code-quality.md)
+- [Riproducibilità e validazione](practices/reproducibility.md)
+- [Gestione del lavoro](practices/work-management.md)
+- [Consegna](practices/delivery.md)
+- [Sistemi agentici](practices/agentic-systems.md)
+
+### Livelli di maturità
+- [Foundation](levels/foundation.md)
+- [Production-Ready](levels/production-ready.md)
+- [Enterprise-Grade](levels/enterprise-grade.md)
+
+### Template
+- [ADR — Architecture Decision Record](templates/adr-template.md)
+- [Architecture Document](templates/architecture-template.md)
+- [Runbook](templates/runbook-template.md)
+- [Handover Checklist](templates/handover-checklist.md)
+- [Agent Perimeter Definition](templates/agent-perimeter.md)
