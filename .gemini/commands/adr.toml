@@ -1,4 +1,3 @@
-# GENERATO da tools/gen_agent_tooling.py — non modificare a mano.
 description = "Crea un nuovo Architecture Decision Record numerato (S02)"
 prompt = '''
 Crea un nuovo **ADR — Architecture Decision Record** secondo lo standard **S02**

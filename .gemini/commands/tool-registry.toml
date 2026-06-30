@@ -1,4 +1,3 @@
-# GENERATO da tools/gen_agent_tooling.py — non modificare a mano.
 description = "Genera o aggiorna il registro dei tool agentici con classificazione di sicurezza (S18)"
 prompt = '''
 Genera o aggiorna `docs/tools-registry.md` secondo lo standard **S18 — Tool Safety

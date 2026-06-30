@@ -2,8 +2,6 @@
 description: "Crea o aggiorna il runbook operativo (S15) per la consegna"
 mode: agent
 ---
-<!-- GENERATO da tools/gen_agent_tooling.py — non modificare a mano. -->
-
 Crea o aggiorna `docs/runbook.md` secondo lo standard **S15** (principio P10: la
 consegna e' un sistema, non un artefatto).
 

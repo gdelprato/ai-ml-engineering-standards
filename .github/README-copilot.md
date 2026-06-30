@@ -1,9 +1,10 @@
 # GitHub Copilot Utilities — AI/ML Engineering Standards
 
-Utility per **GitHub Copilot** che applicano e fanno rispettare gli standard
-della practice (principi P01–P10, standard S01–S23) durante lo sviluppo. Sono il
-gemello delle utility in [`.claude/`](../.claude/README.md), adattate ai
-meccanismi di Copilot.
+Utility **ad hoc per GitHub Copilot** che applicano e fanno rispettare gli
+standard della practice (principi P01–P10, standard S01–S23) durante lo sviluppo.
+
+Sono **autonome**: tutto ciò che serve è in `.github/` (parti elencate sotto).
+Nessuna dipendenza da altri tool o da altre cartelle.
 
 ## Cosa contiene
 
@@ -13,12 +14,7 @@ meccanismi di Copilot.
 ├── prompts/                  # prompt files (.prompt.md) → /<nome> in chat
 ├── chatmodes/                # chat modes (.chatmode.md) → personas di review
 └── hooks/                    # vincoli automatici (PreToolUse / PostToolUse)
-tools/standards_core/         # logica delle regole (condivisa, NON duplicata)
 ```
-
-> **Dipendenza importante:** gli hook importano `tools/standards_core`. Quando
-> copi questo tooling in un progetto, copia **sia `.github/` (queste parti) sia
-> `tools/`**. Gli hook risolvono il core relativamente alla propria posizione.
 
 ## Contesto
 
@@ -40,7 +36,7 @@ In `chatmodes/*.chatmode.md`: `compliance-auditor`, `agentic-safety-reviewer`,
 ## Hooks — vincoli automatici
 
 Configurati in `hooks/standards.json` (Copilot agent hooks, **public preview**).
-In Python 3, nessuna dipendenza esterna.
+In Python 3, nessuna dipendenza esterna, ogni hook è self-contained.
 
 | Hook | Evento | Cosa fa | Standard |
 |---|---|---|---|
@@ -57,15 +53,12 @@ matcher.
 > possono differire leggermente tra le superfici (VS Code Chat vs coding agent).
 > Verifica `hooks/standards.json` per la tua versione se gli hook non scattano.
 
-## Rigenerazione
+## Come usarle in un nuovo progetto
 
-Prompt files e chat modes sono **generati** dall'unica fonte `.claude/`:
-
-```
-python3 tools/gen_agent_tooling.py
-```
-
-I file generati portano un banner `GENERATO da ...`: non modificarli a mano.
+1. Copia in `.github/` del progetto: `copilot-instructions.md`, `prompts/`,
+   `chatmodes/`, `hooks/`.
+2. Copilot caricherà automaticamente le istruzioni; i prompt files e le chat
+   modes saranno disponibili in chat, gli hook attivi sulle tool call.
 
 ## Requisiti
 

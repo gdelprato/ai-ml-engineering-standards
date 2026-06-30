@@ -2,8 +2,6 @@
 description: "Crea la struttura di repository standard (S03) per un nuovo progetto AI/ML o agentico"
 mode: agent
 ---
-<!-- GENERATO da tools/gen_agent_tooling.py — non modificare a mano. -->
-
 Scaffolda un nuovo progetto conforme allo standard **S03 — Repository Structure**.
 
 Argomenti: `${input}`

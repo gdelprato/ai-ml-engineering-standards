@@ -2,8 +2,6 @@
 description: "Crea un nuovo Architecture Decision Record numerato (S02)"
 mode: agent
 ---
-<!-- GENERATO da tools/gen_agent_tooling.py — non modificare a mano. -->
-
 Crea un nuovo **ADR — Architecture Decision Record** secondo lo standard **S02**
 (principio P02: ogni decisione tecnica rilevante e' tracciata con contesto,
 alternative e motivazione).

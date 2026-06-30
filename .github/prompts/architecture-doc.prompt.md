@@ -2,8 +2,6 @@
 description: "Crea o aggiorna il documento di architettura (S01) prima di scrivere codice"
 mode: agent
 ---
-<!-- GENERATO da tools/gen_agent_tooling.py — non modificare a mano. -->
-
 Crea o aggiorna `docs/architecture.md` secondo lo standard **S01** (principio P01:
 l'architettura viene prima del codice di produzione).
 

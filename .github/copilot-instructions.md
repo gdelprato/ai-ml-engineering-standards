@@ -4,10 +4,9 @@ Questo repository definisce il **modello operativo della practice AI/ML
 Engineering**: principi (P01–P10), standard verificabili (S01–S23) e pratiche con
 livelli di maturità (Foundation, Production-Ready, Enterprise-Grade).
 
-> File gemello di [CLAUDE.md](../CLAUDE.md) e [GEMINI.md](../GEMINI.md): stesso
-> contenuto normativo, adattato a GitHub Copilot. La fonte unica del tooling
-> resta `.claude/`; le utility di Copilot sono generate da
-> `tools/gen_agent_tooling.py`.
+> Istruzioni di repository per **GitHub Copilot**. Il tooling che le accompagna
+> (`.github/prompts/`, `.github/chatmodes/`, `.github/hooks/`) è autonomo e
+> specifico per Copilot: non dipende da altri tool.
 
 ## Natura del repository
 
@@ -39,8 +38,8 @@ Le modifiche strutturali richiedono un ADR allegato (vedere README § Governance
   `architecture-reviewer`, `eval-designer`.
 - **Hook** (`.github/hooks/`) — vincoli automatici applicati su
   `PreToolUse`/`PostToolUse` (public preview): protezione `data/raw/` e `.env`,
-  blocco notebook in `src/`, scansione secret, validazione commit. Dipendono da
-  `tools/standards_core/`.
+  blocco notebook in `src/`, scansione secret, validazione commit. Sono script
+  Python autonomi (nessuna dipendenza esterna).
 
 Documentazione in italiano, coerente con il resto del repository. Mantieni
 allineati i riferimenti incrociati tra principi, standard e pratiche.

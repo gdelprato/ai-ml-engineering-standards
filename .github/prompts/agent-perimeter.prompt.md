@@ -2,8 +2,6 @@
 description: "Crea il documento di perimetro operativo per un sistema agentico (S22)"
 mode: agent
 ---
-<!-- GENERATO da tools/gen_agent_tooling.py — non modificare a mano. -->
-
 Crea o aggiorna `docs/agent-perimeter.md` secondo lo standard **S22 — Perimeter
 Definition**.
 

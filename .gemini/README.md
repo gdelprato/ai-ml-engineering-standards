@@ -1,32 +1,27 @@
 # Gemini CLI Utilities — AI/ML Engineering Standards
 
-Utility per **Gemini CLI** che applicano e fanno rispettare gli standard della
-practice (principi P01–P10, standard S01–S23) durante lo sviluppo. Sono il
-gemello delle utility in [`.claude/`](../.claude/README.md), adattate al
-contratto di Gemini CLI.
+Utility **ad hoc per Gemini CLI** che applicano e fanno rispettare gli standard
+della practice (principi P01–P10, standard S01–S23) durante lo sviluppo.
 
-La conformità non dipende dalla disciplina del singolo: è guidata dal contesto
-(`GEMINI.md`) e in parte **applicata automaticamente** dagli hook.
+Sono **autonome**: tutto ciò che serve è in questa cartella `.gemini/` (più il
+contesto `GEMINI.md` alla radice). Nessuna dipendenza da altri tool o da altre
+cartelle. La conformità non dipende dalla disciplina del singolo: è guidata dal
+contesto e in parte **applicata automaticamente** dagli hook.
 
 ## Cosa contiene
 
 ```
 .gemini/
 ├── settings.json        # registra gli hook (BeforeTool / AfterTool)
-├── hooks/               # adattatori sottili sul core condiviso
+├── hooks/               # vincoli automatici, script Python autonomi
 └── commands/            # slash command (.toml) + review/ (personas)
 GEMINI.md                # contesto di progetto (sempre caricato)
-tools/standards_core/    # logica delle regole (condivisa, NON duplicata)
 ```
-
-> **Dipendenza importante:** gli hook importano `tools/standards_core`. Quando
-> copi questo tooling in un progetto, copia **sia `.gemini/` sia `tools/`** (e
-> `GEMINI.md`). Gli hook risolvono il core relativamente alla propria posizione,
-> quindi funzionano da qualunque `cwd`.
 
 ## Hooks — vincoli automatici
 
-Configurati in `settings.json`, in Python 3 (nessuna dipendenza esterna).
+Configurati in `settings.json`, in Python 3 (nessuna dipendenza esterna, ogni
+hook è self-contained).
 
 | Hook | Evento | Cosa fa | Standard |
 |---|---|---|---|
@@ -56,8 +51,8 @@ Definiti in `commands/*.toml`. Invocabili in chat con `/<nome>`.
 
 ## Personas di review
 
-Gemini CLI non ha subagent nativi: le personas dei subagent di Claude sono
-esposte come comandi namespaced in `commands/review/`.
+Gemini CLI non ha subagent nativi: le personas di review sono esposte come
+comandi namespaced in `commands/review/`.
 
 | Comando | Quando usarlo | Standard |
 |---|---|---|
@@ -67,17 +62,14 @@ esposte come comandi namespaced in `commands/review/`.
 | `/review:architecture-reviewer` | Prima di scrivere codice; review architettura/ADR | S01, S02 |
 | `/review:eval-designer` | Progettare/rivedere eval e validation gate | S10, S20 |
 
-## Rigenerazione
+## Come usarle in un nuovo progetto
 
-Comandi e personas sono **generati** dall'unica fonte `.claude/` per non
-divergere. Dopo aver modificato un file in `.claude/commands/` o
-`.claude/agents/`, rigenera con:
-
-```
-python3 tools/gen_agent_tooling.py
-```
-
-I file generati portano un banner `GENERATO da ...`: non modificarli a mano.
+1. Copia `.gemini/` e `GEMINI.md` nella radice del progetto.
+2. Apri il progetto con Gemini CLI: `GEMINI.md` carica il contesto e gli hook in
+   `settings.json` diventano attivi.
+3. Parti da `/architecture-doc` (P01: architettura prima del codice), poi
+   `/scaffold-project`, e procedi. Prima della consegna lancia
+   `/compliance-check` o `/review:compliance-auditor`.
 
 ## Requisiti
 

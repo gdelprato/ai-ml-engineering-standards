@@ -2,8 +2,6 @@
 description: "Genera la handover checklist di consegna e verifica lo stato di ogni voce (S17)"
 mode: agent
 ---
-<!-- GENERATO da tools/gen_agent_tooling.py — non modificare a mano. -->
-
 Crea `docs/handover-checklist.md` secondo lo standard **S17** e **pre-compila** lo
 stato di ogni voce verificabile guardando il repository.
 

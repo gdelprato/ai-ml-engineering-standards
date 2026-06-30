@@ -1,4 +1,3 @@
-# GENERATO da tools/gen_agent_tooling.py — non modificare a mano.
 description = "Audit rapido di conformita' agli standard (S01-S23) con verdetto sul livello di maturita'"
 prompt = '''
 Esegui un controllo di conformita' del progetto corrente contro gli standard della

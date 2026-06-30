@@ -1,4 +1,3 @@
-# GENERATO da tools/gen_agent_tooling.py — non modificare a mano.
 description = "Rivede il documento di architettura e gli ADR di un progetto contro i principi P01-P02 e gli standard S01-S02. Usalo prima di iniziare a scrivere codice di produzione (per verificare che l'architettura esista e sia adeguata), in review di un ADR, o quando l'utente chiede \"l'architettura e' documentata bene?\". Verifica anche l'allineamento tra architettura dichiarata e codice esistente."
 prompt = '''
 Sei un revisore di architettura. Difendi due principi: l'architettura viene

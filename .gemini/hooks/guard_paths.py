@@ -1,20 +1,32 @@
 #!/usr/bin/env python3
 """Gemini CLI — BeforeTool: applica i vincoli strutturali sulle scritture.
 
-Adattatore sottile sul core condiviso `tools/standards_core`. Blocca scritture
-che violano S08 (data/raw immutabile), S04/S05 (.env), S03 (notebook in src/).
+Hook autonomo (nessuna dipendenza esterna): blocca scritture che violano
+  - S08  data/raw/ e' immutabile (nessuna modifica manuale ai dati originali)
+  - S04/S05  .env non viene mai scritto/committato (usare .env.example)
+  - S03  nessun notebook (.ipynb) dentro src/
 
-Contratto Gemini: riceve il payload JSON su stdin (campi tool_name, tool_input,
-cwd). Per bloccare esce con codice 2 e scrive la motivazione su stderr; negli
-altri casi esce 0.
+Contratto Gemini CLI: riceve il payload JSON su stdin (campi tool_name,
+tool_input, cwd). Per bloccare esce con codice 2 e scrive la motivazione su
+stderr (Gemini la mostra all'agente); negli altri casi esce 0.
 """
 import json
 import os
 import sys
-from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools"))
-from standards_core import rules  # noqa: E402
+
+def _resolve_path(tool_input: dict, cwd: str) -> str:
+    # Gemini usa "path"; si accettano anche varianti per robustezza.
+    file_path = (
+        tool_input.get("path")
+        or tool_input.get("file_path")
+        or tool_input.get("filePath")
+        or tool_input.get("file")
+        or ""
+    )
+    if not file_path:
+        return ""
+    return file_path if os.path.isabs(file_path) else os.path.join(cwd, file_path)
 
 
 def main() -> int:
@@ -25,14 +37,45 @@ def main() -> int:
 
     tool_input = payload.get("tool_input", {}) or {}
     cwd = payload.get("cwd") or os.getcwd()
-    abs_path = rules.resolve_path(tool_input, cwd)
+    abs_path = _resolve_path(tool_input, cwd)
     if not abs_path:
         return 0
 
-    reason = rules.check_write_violation(abs_path, cwd, os.path.exists(abs_path))
-    if reason:
-        sys.stderr.write(reason + "\n")
+    norm = abs_path.replace(os.sep, "/")
+    rel = os.path.relpath(abs_path, cwd).replace(os.sep, "/")
+    basename = os.path.basename(norm)
+
+    # --- S08: data/raw/ immutabile ---------------------------------------
+    if "/data/raw/" in norm or rel.startswith("data/raw/"):
+        if os.path.exists(abs_path):
+            sys.stderr.write(
+                "BLOCCATO (S08 - Data Reproducibility): data/raw/ e' in sola "
+                "lettura. I dati raw sono immutabili: nessuna modifica manuale.\n"
+                "Se serve trasformare i dati, scrivi uno script in src/ che "
+                "produca l'output in data/processed/.\n"
+            )
+            return 2
+
+    # --- S04/S05: mai scrivere .env --------------------------------------
+    if basename == ".env" or (
+        basename.startswith(".env.") and not basename.endswith(".example")
+    ):
+        sys.stderr.write(
+            "BLOCCATO (S04/S05 - Configuration Management): il file .env non va "
+            "scritto ne' committato. Documenta le variabili in .env.example "
+            "(senza valori reali) e tieni .env in .gitignore.\n"
+        )
         return 2
+
+    # --- S03: nessun notebook in src/ ------------------------------------
+    if basename.endswith(".ipynb") and ("/src/" in norm or rel.startswith("src/")):
+        sys.stderr.write(
+            "BLOCCATO (S03 - Repository Structure): i notebook non vivono in "
+            "src/. L'esplorazione sta in notebooks/; src/ contiene solo moduli "
+            "Python strutturati e testabili.\n"
+        )
+        return 2
+
     return 0
 
 

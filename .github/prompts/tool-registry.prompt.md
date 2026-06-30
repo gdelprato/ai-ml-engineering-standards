@@ -2,8 +2,6 @@
 description: "Genera o aggiorna il registro dei tool agentici con classificazione di sicurezza (S18)"
 mode: agent
 ---
-<!-- GENERATO da tools/gen_agent_tooling.py — non modificare a mano. -->
-
 Genera o aggiorna `docs/tools-registry.md` secondo lo standard **S18 — Tool Safety
 Definition**.
 

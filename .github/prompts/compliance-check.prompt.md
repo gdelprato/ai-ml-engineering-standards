@@ -2,8 +2,6 @@
 description: "Audit rapido di conformita' agli standard (S01-S23) con verdetto sul livello di maturita'"
 mode: agent
 ---
-<!-- GENERATO da tools/gen_agent_tooling.py — non modificare a mano. -->
-
 Esegui un controllo di conformita' del progetto corrente contro gli standard della
 practice e restituisci il livello di maturita' raggiunto.
 

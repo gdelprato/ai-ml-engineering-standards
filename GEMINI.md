@@ -4,11 +4,8 @@ Questo repository definisce il **modello operativo della practice AI/ML
 Engineering**: principi (P01–P10), standard verificabili (S01–S23) e pratiche con
 livelli di maturità (Foundation, Production-Ready, Enterprise-Grade).
 
-> File gemello di [CLAUDE.md](CLAUDE.md) e
-> [.github/copilot-instructions.md](.github/copilot-instructions.md): stesso
-> contenuto normativo, adattato a Gemini CLI. La fonte unica del tooling resta
-> `.claude/`; le utility di Gemini sono generate da
-> `tools/gen_agent_tooling.py`.
+> Contesto di progetto per **Gemini CLI**. Il tooling che lo accompagna
+> (`.gemini/`) è autonomo e specifico per Gemini: non dipende da altri tool.
 
 ## Natura del repository
 
@@ -32,10 +29,9 @@ Promemoria dei vincoli più rilevanti durante lo sviluppo:
 
 ## Tooling per Gemini CLI
 
-La cartella `.gemini/` contiene le utility che applicano questi standard. Sono
-pensate per essere **copiate nella radice di un progetto** della practice
-(insieme a `tools/`, da cui dipendono gli hook). Vedere
-[.gemini/README.md](.gemini/README.md).
+La cartella `.gemini/` contiene le utility (autonome) che applicano questi
+standard. Sono pensate per essere **copiate nella radice di un progetto** della
+practice insieme a questo `GEMINI.md`. Vedere [.gemini/README.md](.gemini/README.md).
 
 - **Hook** (vincoli automatici, in `.gemini/settings.json`): protezione di
   `data/raw/` e `.env`, blocco dei notebook in `src/`, scansione di secret

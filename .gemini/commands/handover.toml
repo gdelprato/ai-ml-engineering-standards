@@ -1,4 +1,3 @@
-# GENERATO da tools/gen_agent_tooling.py — non modificare a mano.
 description = "Genera la handover checklist di consegna e verifica lo stato di ogni voce (S17)"
 prompt = '''
 Crea `docs/handover-checklist.md` secondo lo standard **S17** e **pre-compila** lo

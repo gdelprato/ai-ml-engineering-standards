@@ -1,4 +1,3 @@
-# GENERATO da tools/gen_agent_tooling.py — non modificare a mano.
 description = "Crea un commit conforme alla convention della practice (S12)"
 prompt = '''
 Crea un commit conforme allo standard **S12 — Commit Convention** (principi P08:

@@ -11,17 +11,14 @@ Il versioning segue [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Tooling multi-agente per applicare gli standard anche con **Gemini CLI** e
-  **GitHub Copilot**, gemello di quello esistente per Claude Code (`.claude/`,
-  lasciato invariato).
-  - Core condiviso `tools/standards_core/` con la logica delle regole
-    (guard path, scan secret, commit convention) — unica fonte di verità.
-  - `.gemini/`: hook (`BeforeTool`/`AfterTool`), `settings.json`, slash command
-    `.toml` e personas di review; contesto in `GEMINI.md`.
-  - `.github/`: hook (`PreToolUse`/`PostToolUse`), prompt files, chat modes e
-    contesto in `copilot-instructions.md`.
-  - Generatore `tools/gen_agent_tooling.py` che deriva comandi e personas dalla
-    fonte unica `.claude/` per evitare divergenze.
+- Tooling **autonomo e ad hoc** per applicare gli standard con **Gemini CLI** e
+  **GitHub Copilot**, accanto a quello esistente per Claude Code (`.claude/`,
+  invariato). Ogni cartella è indipendente: nessuna dipendenza condivisa tra i
+  tool.
+  - `.gemini/`: hook self-contained (`BeforeTool`/`AfterTool`), `settings.json`,
+    slash command `.toml` e personas di review; contesto in `GEMINI.md`.
+  - `.github/`: hook self-contained (`PreToolUse`/`PostToolUse`), prompt files,
+    chat modes e contesto in `copilot-instructions.md`.
 
 ## [1.0.0] — YYYY-MM-DD
 

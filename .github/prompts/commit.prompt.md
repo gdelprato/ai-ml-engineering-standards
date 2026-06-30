@@ -2,8 +2,6 @@
 description: "Crea un commit conforme alla convention della practice (S12)"
 mode: agent
 ---
-<!-- GENERATO da tools/gen_agent_tooling.py — non modificare a mano. -->
-
 Crea un commit conforme allo standard **S12 — Commit Convention** (principi P08:
 il codice e' sempre collegato a un task).
 
