@@ -7,6 +7,19 @@ Il versioning segue [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- Tooling **autonomo e ad hoc** per applicare gli standard con **Gemini CLI** e
+  **GitHub Copilot**, accanto a quello esistente per Claude Code (`.claude/`,
+  invariato). Ogni cartella è indipendente: nessuna dipendenza condivisa tra i
+  tool.
+  - `.gemini/`: hook self-contained (`BeforeTool`/`AfterTool`), `settings.json`,
+    slash command `.toml` e personas di review; contesto in `GEMINI.md`.
+  - `.github/`: hook self-contained (`PreToolUse`/`PostToolUse`), prompt files,
+    chat modes e contesto in `copilot-instructions.md`.
+
 ## [1.0.0] — YYYY-MM-DD
 
 ### Added

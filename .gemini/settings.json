@@ -1,0 +1,41 @@
+{
+  "hooks": {
+    "BeforeTool": [
+      {
+        "matcher": "write_file|replace|write_many_files",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .gemini/hooks/guard_paths.py",
+            "name": "guard-paths",
+            "description": "Blocca scritture vietate: data/raw, .env, notebook in src/ (S03/S04/S05/S08)"
+          }
+        ]
+      },
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .gemini/hooks/check_commit.py",
+            "name": "check-commit",
+            "description": "Valida la commit convention sui git commit (S12)"
+          }
+        ]
+      }
+    ],
+    "AfterTool": [
+      {
+        "matcher": "write_file|replace|write_many_files",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .gemini/hooks/scan_secrets.py",
+            "name": "scan-secrets",
+            "description": "Scansiona secret hardcoded nei file appena scritti (S05)"
+          }
+        ]
+      }
+    ]
+  }
+}
