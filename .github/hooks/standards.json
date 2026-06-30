@@ -1,0 +1,23 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "python3 .github/hooks/guard_paths.py",
+        "timeout": 15
+      },
+      {
+        "type": "command",
+        "command": "python3 .github/hooks/check_commit.py",
+        "timeout": 15
+      }
+    ],
+    "PostToolUse": [
+      {
+        "type": "command",
+        "command": "python3 .github/hooks/scan_secrets.py",
+        "timeout": 15
+      }
+    ]
+  }
+}
